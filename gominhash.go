@@ -1,5 +1,8 @@
 package gominhash
-
+import
+(
+	"hash/adler32"
+)
 
 //Minhash now only for two sets
 func MinHash(set1, set2 [] string) {
@@ -9,12 +12,12 @@ func MinHash(set1, set2 [] string) {
 
 }
 
-func Hash(item string)int64 {
-	return 0
+func Hash(item string)uint32 {
+	return adler32.Checksum([]byte(item))
 }
 
-func findMin(set1 []string)int64{
-	min := int64(1000000000000)
+func findMin(set1 []string)uint32{
+	min := uint32(100000)
 	for _, elem := range set1 {
 		hash_result := Hash(elem)
 		if hash_result < min {
